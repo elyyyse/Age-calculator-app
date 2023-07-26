@@ -179,7 +179,7 @@ hr {
     .container {
         width: 295px;
         padding: 48px 24px;
-        margin: 88px auto 0;
+        /* margin: 88px auto 0; */
         border-bottom-right-radius: 100px;
     }
 
