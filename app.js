@@ -1,6 +1,6 @@
 const form = document.querySelector('form');
-const daysPerMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-const daysPerMonthLeap = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+const daysPerMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+const daysPerMonthLeap = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
 const todaysDate = new Date();
 const today = {
@@ -58,9 +58,6 @@ const calcAndUpdateAge = () => {
     const msecPerDay = 86400000;
 
     const calcAge = (adjustment, daysArray) => {
-        daysPerMonth.push(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31, 31);
-        daysPerMonthLeap.push(31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31, 31);
-
         let yearsOld = 0;
         let monthsOld = 0;
         let daysOld = 0;
@@ -81,15 +78,15 @@ const calcAndUpdateAge = () => {
     }
 
     if (today.year % 4 === 0) {
-        if (today.month >= inputs.month && today.day >= inputs.day) {
+        if (today.month > inputs.month || (today.month === inputs.month && today.day >= inputs.day)) {
             calcAge(0, daysPerMonthLeap);
-        } else if ((today.month >= inputs.month && today.day < inputs.day) || today.month <= inputs.month) {
+        } else if ((today.month === inputs.month && today.day < inputs.day) || today.month < inputs.month) {
             calcAge(1, daysPerMonthLeap);
         }
     } else {
-        if (today.month >= inputs.month && today.day >= inputs.day) {
+        if (today.month > inputs.month || (today.month === inputs.month && today.day >= inputs.day)) {
             calcAge(0, daysPerMonth);
-        } else if ((today.month >= inputs.month && today.day < inputs.day) || today.month <= inputs.month) {
+        } else if ((today.month === inputs.month && today.day < inputs.day) || today.month < inputs.month) {
             calcAge(1, daysPerMonth);
         }
     }
