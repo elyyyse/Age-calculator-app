@@ -2,7 +2,7 @@ const form = document.querySelector('form');
 const daysPerMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 const daysPerMonthLeap = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
-const todaysDate = new Date();
+const todaysDate = new Date(2024, 1, 29, 21);
 const today = {
     year: todaysDate.getFullYear(),
     month: todaysDate.getMonth(),
@@ -51,53 +51,80 @@ const calcAndUpdateAge = () => {
     const birthday = new Date(inputs.year, inputs.month, inputs.day);
     console.log(birthday);
 
-    const leapDays = calcLeapDays(birthday);
+    const leapDays = calcLeapDays(inputs);
 
     const msecOld = todaysDate - birthday;
     const msecPerYear = 31536000000;
     const msecPerDay = 86400000;
 
-    const calcAge = (adjustment, daysArray) => {
+    const calcAge = (yearsAdj, leapAdj, daysArray) => {
         let yearsOld = 0;
         let monthsOld = 0;
         let daysOld = 0;
         let remainder = 0;
 
-        yearsOld = today.year - inputs.year - adjustment;
-        remainder = msecOld - (yearsOld * msecPerYear) - (leapDays * msecPerDay);
+        yearsOld = today.year - inputs.year - yearsAdj;
+        remainder = msecOld - (yearsOld * msecPerYear) - ((leapDays + leapAdj) * msecPerDay);
         let i = inputs.month;
         while ((remainder - (daysArray[i] * msecPerDay)) >= 0) {
             remainder -= (daysArray[i] * msecPerDay);
             monthsOld++;
+            if (monthsOld === 11) {
+                break;
+            }
             i++;
         }
         daysOld = Math.floor(remainder / msecPerDay);
-        yearsOutput.innerText = yearsOld;
-        monthsOutput.innerText = monthsOld;
-        daysOutput.innerText = daysOld;
+
+        // handles anomaly every 4 years on February 29th
+        if (today.month === 1 && today.day === 29 && inputs.month === 2 && inputs.day === 1) {
+            daysOld += 1;
+        }
+
+        updateAge(yearsOutput, yearsOld, '.years-plural');
+        updateAge(monthsOutput, monthsOld, '.months-plural');
+        updateAge(daysOutput, daysOld, '.days-plural');
     }
 
-    if (today.year % 4 === 0) {
-        if (today.month > inputs.month || (today.month === inputs.month && today.day >= inputs.day)) {
-            calcAge(0, daysPerMonthLeap);
+    const updateAge = (output, age, plural) => {
+        output.innerText = age;
+        const plurality = document.querySelector(plural);
+        if (age === 1) {
+            plurality.innerText = '';
+        } else {
+            plurality.innerText = 's';
+        }
+    }
+
+    if ((today.year % 4 === 0 && today.month > 1)) {
+        // user has already celebrated a birthday this year - will pass thru february in array
+        if (inputs.month < 2 && today.month > 1) {
+            calcAge(0, 0, daysPerMonthLeap);
+            // user has already celebrated a birthday this year - will NOT pass thru february in array
+        } else if (today.month > inputs.month || (today.month === inputs.month && today.day >= inputs.day)) {
+            calcAge(0, 1, daysPerMonthLeap);
+            // user has not yet celebrated a birthday this year
         } else if ((today.month === inputs.month && today.day < inputs.day) || today.month < inputs.month) {
-            calcAge(1, daysPerMonthLeap);
+            calcAge(1, 0, daysPerMonthLeap);
         }
     } else {
         if (today.month > inputs.month || (today.month === inputs.month && today.day >= inputs.day)) {
-            calcAge(0, daysPerMonth);
+            calcAge(0, 0, daysPerMonth);
         } else if ((today.month === inputs.month && today.day < inputs.day) || today.month < inputs.month) {
-            calcAge(1, daysPerMonth);
+            calcAge(1, 0, daysPerMonth);
         }
     }
 }
 
-const calcLeapDays = (inputDate) => {
+const calcLeapDays = (birthday) => {
     let leapDays = 0;
-    if (inputDate.getFullYear() % 4 === 0 && inputDate.getMonth() < 2) {
-        leapDays = Math.ceil((todaysDate.getFullYear() - inputDate.getFullYear()) / 4);
-    } else {
-        leapDays = Math.floor((todaysDate.getFullYear() - inputDate.getFullYear()) / 4);
+    for (let i = birthday.year; i < today.year; i++) {
+        if (i % 4 === 0) {
+            leapDays += 1;
+        }
+    }
+    if (birthday.year % 4 === 0 && birthday.month > 1) {
+        leapDays -= 1;
     }
     return leapDays;
 }
