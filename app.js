@@ -2,7 +2,7 @@ const form = document.querySelector('form');
 const daysPerMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 const daysPerMonthLeap = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
-const todaysDate = new Date(2024, 1, 29, 21);
+const todaysDate = new Date();
 const today = {
     year: todaysDate.getFullYear(),
     month: todaysDate.getMonth(),
@@ -78,7 +78,7 @@ const calcAndUpdateAge = () => {
 
         // handles anomaly every 4 years on February 29th
         if (today.month === 1 && today.day === 29 && inputs.month === 2 && inputs.day === 1) {
-            daysOld += 1;
+            daysOld++;
         }
 
         updateAge(yearsOutput, yearsOld, '.years-plural');
@@ -120,11 +120,11 @@ const calcLeapDays = (birthday) => {
     let leapDays = 0;
     for (let i = birthday.year; i < today.year; i++) {
         if (i % 4 === 0) {
-            leapDays += 1;
+            leapDays++;
         }
     }
     if (birthday.year % 4 === 0 && birthday.month > 1) {
-        leapDays -= 1;
+        leapDays--;
     }
     return leapDays;
 }
