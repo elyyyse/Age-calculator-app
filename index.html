@@ -1,73 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- displays site properly based on user's device -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./assets/images/favicon-32x32.png"
+    />
 
-<head>
-  <meta charset="UTF-8">
-  <!-- displays site properly based on user's device -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;1,400;1,800&display=swap"
+      rel="stylesheet"
+    />
+    <!-- <link rel="stylesheet" href="fonts.css"> -->
+    <link rel="stylesheet" href="styles.css" />
+    <title>Age calculator app | Frontend Mentor</title>
+  </head>
 
+  <body>
+    <div class="wrapper">
+      <main>
+        <div class="container">
+          <form action="#">
+            <div class="inputs-container">
+              <div class="input-container" id="day-input-container">
+                <label for="day-input">DAY</label>
+                <input
+                  type="number"
+                  name="day-input"
+                  placeholder="DD"
+                  min="1"
+                  id="day-input"
+                />
+                <span class="day-error error-msg hidden">Error message</span>
+              </div>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;1,400;1,800&display=swap"
-    rel="stylesheet">
-  <!-- <link rel="stylesheet" href="fonts.css"> -->
-  <link rel="stylesheet" href="styles.css">
-  <title>Age calculator app | Frontend Mentor</title>
+              <div class="input-container" id="month-input-container">
+                <label for="month-input">MONTH</label>
+                <input
+                  type="number"
+                  name="month-input"
+                  placeholder="MM"
+                  min="1"
+                  id="month-input"
+                />
+                <span class="month-error error-msg hidden">Error message</span>
+              </div>
 
-</head>
-
-<body>
-
-  <div class="wrapper">
-    <main>
-      <div class="container">
-        <form action="#">
-
-          <div class="inputs-container">
-            <div class="input-container" id="day-input-container">
-              <label for="day-input">DAY</label>
-              <input type="number" name="day-input" placeholder="DD" min="1" id="day-input">
-              <span class="day-error error-msg hidden">Error message</span>
+              <div class="input-container" id="year-input-container">
+                <label for="year-input">YEAR</label>
+                <input
+                  type="number"
+                  name="year-input"
+                  placeholder="YYYY"
+                  min="1900"
+                  id="year-input"
+                />
+                <span class="year-error error-msg hidden">Error message</span>
+              </div>
             </div>
 
-            <div class="input-container" id="month-input-container">
-              <label for="month-input">MONTH</label>
-              <input type="number" name="month-input" placeholder="MM" min="1" id="month-input">
-              <span class="month-error error-msg hidden">Error message</span>
-            </div>
+            <button id="submit">
+              <img
+                src="./assets/images/icon-arrow.svg"
+                alt="Circular purple button with white down arrow"
+              />
+            </button>
+          </form>
 
-            <div class="input-container" id="year-input-container">
-              <label for="year-input">YEAR</label>
-              <input type="number" name="year-input" placeholder="YYYY" min="1900" id="year-input">
-              <span class="year-error error-msg hidden">Error message</span>
+          <hr />
+
+          <div class="results-container">
+            <div class="result-static">
+              <span id="years-output" class="result-dynamic"
+                ><span class="mobile-view">-</span>-</span
+              >
+              year<span class="years-plural">s</span>
+            </div>
+            <div class="result-static">
+              <span id="months-output" class="result-dynamic"
+                ><span class="mobile-view">-</span>-</span
+              >
+              month<span class="months-plural">s</span>
+            </div>
+            <div class="result-static">
+              <span id="days-output" class="result-dynamic"
+                ><span class="mobile-view">-</span>-</span
+              >
+              day<span class="days-plural">s</span>
             </div>
           </div>
-
-          <button id="submit">
-            <img src="./assets/images/icon-arrow.svg" alt="Circular purple button with white arrow inside">
-          </button>
-        </form>
-
-        <hr>
-
-        <div class="results-container">
-          <div class="result-static"><span id="years-output" class="result-dynamic"><span
-                class="mobile-view">-</span>-</span> year<span class="years-plural">s</span></div>
-          <div class="result-static"><span id="months-output" class="result-dynamic"><span
-                class="mobile-view">-</span>-</span> month<span class="months-plural">s</span></div>
-          <div class="result-static"><span id="days-output" class="result-dynamic"><span
-                class="mobile-view">-</span>-</span> day<span class="days-plural">s</span></div>
         </div>
-      </div>
-    </main>
-    <footer class="attribution">
-      <!-- Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. Coded by <a href="https://www.elysekan.com">Elyse Kanagaratnam</a>. -->
-    </footer>
-  </div>
+      </main>
+      <footer class="attribution">
+        Challenge by
+        <a href="https://www.frontendmentor.io?ref=challenge" target="_blank"
+          >Frontend Mentor</a
+        >. Coded by <a href="https://www.elysekan.com">Elyse Kanagaratnam</a>.
+      </footer>
+    </div>
 
-  <script src="app.js"></script>
-</body>
-
+    <script src="app.js"></script>
+  </body>
 </html>
