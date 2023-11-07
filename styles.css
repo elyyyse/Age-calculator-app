@@ -114,6 +114,7 @@ input::placeholder {
   background-color: var(--purple);
   border: none;
   border-radius: 50%;
+  cursor: pointer;
   /* padding: 26px; */
   display: flex;
   justify-content: center;
