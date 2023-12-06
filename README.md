@@ -33,26 +33,28 @@ Users should be able to:
 
 ### Links
 
-- [Solution URL:](https://github.com/elyyyse/Age-calculator-app)
-- [Live Site URL:](https://elyyyse.github.io/Age-calculator-app/)
+- [Solution URL](https://github.com/elyyyse/Age-calculator-app)
+- [Live Site URL](https://elyyyse.github.io/Age-calculator-app/)
 
 ## My process
 
 ### Built with
 
+- Vanilla JavaScript
 - Semantic HTML5 markup
-- CSS custom properties
-- Flexbox
-- VanillaJS
+- CSS custom properties, Flexbox
 
 ### What I learned
 
-This marks my first interactions with dates in Javascript, so naturally, I learned a lot. I'll be curious to revisit this code when I have more projects under my belt to see how I could have built it better.
+This marks my first interactions with dates in JavaScript, so naturally, I learned a lot. I'll be curious to revisit this code when I have more projects under my belt to see how I could have built it better.
 
 This project also gave me the opportunity to:
 - Style number inputs
 - Continue to explore the nuances of Flexbox
 - Play more with the position property
+- Learn about aria-errormessage and aria-invalid to make custom, yet accessible, error messages
+
+Bonus: The acceptance criteria said to show error message if "The year is in the future", but I added logic to show the error if the date is in the future for any reason.
 
 ### Continued development
 
