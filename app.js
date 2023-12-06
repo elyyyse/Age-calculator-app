@@ -7,7 +7,7 @@ const DAYS_PER_MONTH_LEAP = [
   31, 30, 31, 30, 31,
 ];
 
-const todaysDate = new Date(2023, 10, 6);
+const todaysDate = new Date();
 const today = {
   year: todaysDate.getFullYear(),
   month: todaysDate.getMonth(),
