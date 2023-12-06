@@ -49,7 +49,7 @@ Users should be able to:
 This marks my first interactions with dates in JavaScript, so naturally, I learned a lot. I'll be curious to revisit this code when I have more projects under my belt to see how I could have built it better.
 
 This project also gave me the opportunity to:
-- Style number inputs
+- Style number inputs (including placeholders, outlines, spinners, and carat colors)
 - Continue to explore the nuances of Flexbox
 - Play more with the position property
 - Learn about aria-errormessage and aria-invalid to make custom, yet accessible, error messages
