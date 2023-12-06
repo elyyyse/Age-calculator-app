@@ -13,6 +13,16 @@
   padding: 0;
 }
 
+.visually-hidden {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
 body {
   font-family: 'Poppins', sans-serif;
   background-color: var(--light-grey);
@@ -57,7 +67,7 @@ label {
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
+  appearance: none;
 }
 
 input {
@@ -75,7 +85,7 @@ input {
   color: var(--off-black);
   caret-color: var(--purple);
   /* Firefox */
-  -moz-appearance: textfield;
+  appearance: textfield;
 }
 
 input:focus {
@@ -94,10 +104,13 @@ input::placeholder {
   font-style: italic;
   font-size: 14px;
   color: var(--light-red);
+  /* visibility: hidden; */
+  display: none;
 }
 
-.hidden {
-  display: none;
+[aria-invalid='true'] ~ .error-msg {
+  /* visibility: visible; */
+  display: unset;
 }
 
 .error-state > label {
@@ -126,6 +139,11 @@ input::placeholder {
 
 #submit > img {
   width: 44px;
+}
+
+#submit:focus {
+  outline: var(--smokey-grey) solid 2px;
+  outline-offset: 2px;
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -177,7 +195,7 @@ hr {
   color: hsl(228, 45%, 44%);
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 925px) {
   .container {
     width: 295px;
     padding: 48px 24px;

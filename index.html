@@ -36,8 +36,11 @@
                   placeholder="DD"
                   min="1"
                   id="day-input"
+                  aria-errormessage="day-error-msg"
                 />
-                <span class="day-error error-msg hidden">Error message</span>
+                <span id="day-error-msg" class="day-error error-msg"
+                  >Error message</span
+                >
               </div>
 
               <div class="input-container" id="month-input-container">
@@ -48,8 +51,11 @@
                   placeholder="MM"
                   min="1"
                   id="month-input"
+                  aria-errormessage="month-error-msg"
                 />
-                <span class="month-error error-msg hidden">Error message</span>
+                <span id="month-error-msg" class="month-error error-msg"
+                  >Error message</span
+                >
               </div>
 
               <div class="input-container" id="year-input-container">
@@ -58,14 +64,18 @@
                   type="number"
                   name="year-input"
                   placeholder="YYYY"
-                  min="1900"
+                  min="1901"
                   id="year-input"
+                  aria-errormessage="year-error-msg"
                 />
-                <span class="year-error error-msg hidden">Error message</span>
+                <span id="year-error-msg" class="year-error error-msg"
+                  >Error message</span
+                >
               </div>
             </div>
 
             <button id="submit">
+              <span class="visually-hidden">Submit</span>
               <img
                 src="./assets/images/icon-arrow.svg"
                 alt="Circular purple button with white down arrow"
@@ -101,7 +111,9 @@
         Challenge by
         <a href="https://www.frontendmentor.io?ref=challenge" target="_blank"
           >Frontend Mentor</a
-        >. Coded by <a href="https://www.elysekan.com">Elyse Kanagaratnam</a>.
+        >. Coded by
+        <a href="https://www.elysekan.com" target="_blank">Elyse Kanagaratnam</a
+        >.
       </footer>
     </div>
 

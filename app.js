@@ -1,4 +1,4 @@
-const DAYS_PER_MONTH_ = [
+const DAYS_PER_MONTH = [
   31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31, 31, 28, 31, 30, 31, 30, 31,
   31, 30, 31, 30, 31,
 ];
@@ -7,7 +7,7 @@ const DAYS_PER_MONTH_LEAP = [
   31, 30, 31, 30, 31,
 ];
 
-const todaysDate = new Date();
+const todaysDate = new Date(2023, 10, 6);
 const today = {
   year: todaysDate.getFullYear(),
   month: todaysDate.getMonth(),
@@ -121,13 +121,13 @@ const calcAndUpdateAge = () => {
       today.month > inputs.month ||
       (today.month === inputs.month && today.day >= inputs.day)
     ) {
-      calcAge(0, 0, DAYS_PER_MONTH_);
+      calcAge(0, 0, DAYS_PER_MONTH);
     } else if (
       // user has already celebrated a birthday this year
       (today.month === inputs.month && today.day < inputs.day) ||
       today.month < inputs.month
     ) {
-      calcAge(1, 0, DAYS_PER_MONTH_);
+      calcAge(1, 0, DAYS_PER_MONTH);
     }
   }
 };
@@ -138,11 +138,11 @@ const checkRequiredFields = () => {
     const inputContainer = input.parentElement;
     const errorMsg = inputContainer.querySelector('.error-msg');
     if (input.value === '') {
+      input.setAttribute('aria-invalid', 'true');
       errorMsg.innerText = 'This field is required';
-      errorMsg.classList.remove('hidden');
       inputContainer.classList.add('error-state');
     } else if (input.value !== '') {
-      errorMsg.classList.add('hidden');
+      input.setAttribute('aria-invalid', 'false');
       inputContainer.classList.remove('error-state');
     }
   }
@@ -161,43 +161,87 @@ const checkDateValidity = () => {
 
   const checkDayValidity = daysArray => {
     if (inputs.day > 31) {
-      addErrorStates(dayErrorMsg, dayInputContainer, 'Must be a valid day');
+      addErrorStates(
+        dayInput,
+        dayErrorMsg,
+        dayInputContainer,
+        'Must be a valid day'
+      );
     } else if (inputs.day > daysArray[inputs.month] && inputs.day < 32) {
-      addErrorStates(dayErrorMsg, dayInputContainer, 'Must be a valid date');
+      addErrorStates(
+        dayInput,
+        dayErrorMsg,
+        dayInputContainer,
+        'Must be a valid date'
+      );
     } else if (inputs.day) {
-      removeErrorStates(dayErrorMsg, dayInputContainer);
+      removeErrorStates(dayInput, dayErrorMsg, dayInputContainer);
     }
   };
 
   if (inputs.year % 4 === 0) {
     checkDayValidity(DAYS_PER_MONTH_LEAP);
   } else {
-    checkDayValidity(DAYS_PER_MONTH_);
+    checkDayValidity(DAYS_PER_MONTH);
   }
 
   if (inputs.month > 11) {
-    addErrorStates(monthErrorMsg, monthInputContainer, 'Must be a valid month');
+    addErrorStates(
+      monthInput,
+      monthErrorMsg,
+      monthInputContainer,
+      'Must be a valid month'
+    );
   } else if (inputs.month) {
-    removeErrorStates(monthErrorMsg, monthInputContainer);
+    removeErrorStates(monthInput, monthErrorMsg, monthInputContainer);
   }
 
-  if (
-    inputs.year > today.year ||
-    (inputs.year === today.year && inputs.month > today.month)
+  if (inputs.year > today.year) {
+    addErrorStates(
+      yearInput,
+      yearErrorMsg,
+      yearInputContainer,
+      'Must be in the past'
+    );
+  } else if (inputs.year === today.year && inputs.month > today.month) {
+    addErrorStates(
+      monthInput,
+      monthErrorMsg,
+      monthInputContainer,
+      'Must be in the past'
+    );
+  } else if (
+    inputs.year === today.year &&
+    inputs.month === today.month &&
+    inputs.day > today.day
   ) {
-    addErrorStates(yearErrorMsg, yearInputContainer, 'Must be in the past');
-  } else if (inputs.year) {
-    removeErrorStates(yearErrorMsg, yearInputContainer);
+    addErrorStates(
+      dayInput,
+      dayErrorMsg,
+      dayInputContainer,
+      'Must be in the past'
+    );
+  } else if (inputs.year && inputs.month < 11 && inputs.day < 32) {
+    removeErrorStates(yearInput, yearErrorMsg, yearInputContainer);
+    removeErrorStates(monthInput, monthErrorMsg, monthInputContainer);
+    // removeErrorStates(dayInput, dayErrorMsg, dayInputContainer);
+    if (inputs.year % 4 === 0) {
+      checkDayValidity(DAYS_PER_MONTH_LEAP);
+    } else {
+      checkDayValidity(DAYS_PER_MONTH);
+    }
   }
 };
 
-const addErrorStates = (error, container, msg) => {
+const addErrorStates = (input, error, container, msg) => {
+  input.setAttribute('aria-invalid', 'true');
   error.innerText = msg;
   error.classList.remove('hidden');
   container.classList.add('error-state');
 };
 
-const removeErrorStates = (error, container) => {
+const removeErrorStates = (input, error, container) => {
+  input.setAttribute('aria-invalid', 'false');
   error.classList.add('hidden');
   container.classList.remove('error-state');
 };
